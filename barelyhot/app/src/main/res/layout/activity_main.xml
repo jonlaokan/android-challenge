@@ -6,8 +6,18 @@
     tools:context=".MainActivity">
 
     <com.m2dl.barelyhot.GameView
+        android:id="@+id/gameView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
     />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="movePlayer"
+        android:text="Button"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="271dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

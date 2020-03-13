@@ -5,7 +5,8 @@ import android.util.DisplayMetrics;
 
 public class Player extends GraphicComponent {
 
-    Player(Resources res, DisplayMetrics displayMetrics) {
-        super(res, displayMetrics);
+    Player(Resources res, DisplayMetrics displayMetrics, float x, float y) {
+        super(res, displayMetrics, x, y);
     }
+
 }
