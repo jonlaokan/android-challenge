@@ -18,11 +18,17 @@ public class GameView extends View {
     private float x, y;
     private boolean touching;
     private Matrix matrix;
+    private Matrix barrelMatrix;
+    private Matrix barrel2Matrix;
 
     private DisplayMetrics currentDisplay;
 
     private Bitmap playerBitmap;
+    private Bitmap barrelBitmap;
+    private Bitmap barrel2Bitmap;
     private Player player;
+    private Barrel barrel;
+    private Barrel barrel2;
 
     Random randomGenerator = new Random();
     
@@ -34,14 +40,21 @@ public class GameView extends View {
         currentDisplay = context.getResources().getDisplayMetrics();
         player =  new Player(getResources(), currentDisplay, 400, 400);
         matrix = player.matrixTranslateAndMove(0, 400.0f, 400.0f);
+        playerBitmap = player.initBitmap(playerBitmap,R.drawable.cut_the_rope, 400, 400);
+        barrel = new Barrel(getResources(), currentDisplay, 200, 200, 0, barrelMatrix, this);
+        barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.sun, 300, 300);
+        barrelMatrix = barrel.matrixTranslateAndMove(0, 200.0f, 200.0f);
+
+        barrel.startThread();
     }
 
     @Override
     public void onDraw(Canvas canvas) {
-        playerBitmap = player.initBitmap(playerBitmap,R.drawable.cut_the_rope, 400, 400);
-
 
         canvas.drawBitmap(playerBitmap, matrix, paint);
+        canvas.drawBitmap(barrelBitmap, barrel.getMatrixPos(), paint);
+        //canvas.drawBitmap(barrel2Bitmap, barrel2Matrix, paint);
+        System.out.println(barrel.getMatrixPos().toString());
     }
 
     public void move(View view) {
@@ -50,6 +63,7 @@ public class GameView extends View {
 
         System.out.println("matrix changed");
         invalidate();
+
     }
 
 }

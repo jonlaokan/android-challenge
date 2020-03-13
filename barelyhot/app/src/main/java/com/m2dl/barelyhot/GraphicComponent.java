@@ -10,8 +10,8 @@ abstract class GraphicComponent {
 
     private final Resources res;
     protected final float scale;
-    private float currentX;
-    private float currentY;
+    protected float currentX;
+    protected float currentY;
 
     private float xOffset;
     private float yOffset;

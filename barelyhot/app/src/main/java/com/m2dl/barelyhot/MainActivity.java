@@ -19,4 +19,7 @@ public class MainActivity extends AppCompatActivity {
     public void movePlayer(View view) {
         gv.move(view);
     }
+
+
+
 }
