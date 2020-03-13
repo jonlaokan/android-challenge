@@ -56,13 +56,7 @@ public class Barrel extends GraphicComponent {
         this.gv = gv;
     }
 
-    protected  void startThread() {
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    while(true) {
-                        sleep(50);
+    protected  void moveBarrel() {
                         matrixPos = move();
                         gv.invalidate();
                         if (currentX > gv.getWidth() || currentY > gv.getHeight()) {
@@ -71,14 +65,5 @@ public class Barrel extends GraphicComponent {
                             currentY = 0;
                         }
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        thread.start();
-    }
-
-
 
 }
