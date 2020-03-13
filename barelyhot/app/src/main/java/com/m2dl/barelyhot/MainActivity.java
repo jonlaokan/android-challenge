@@ -2,7 +2,6 @@ package com.m2dl.barelyhot;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Matrix;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,7 +9,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -18,8 +16,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private GameView gv;
     private SensorManager sm;
     private float[] accValues = {0,0};
-    private Float vitesse = 0f;
+    private Float score = 0f;
     private TextView scoreView;
+    private GameData gd = new GameData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sm.registerListener(this, accSensor,SensorManager.SENSOR_DELAY_UI);
         scoreView = findViewById(R.id.score);
         scoreView.setText("0");
-
+        gv.player.setLat(gv.getWidth()/2f);
+        gv.player.setLng(gv.getHeight()/2f);
     }
 
     @Override
@@ -53,15 +53,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         int sensor = event.sensor.getType();
-        if (sensor == Sensor.TYPE_ACCELEROMETER /*&& event.values[0]>0.001 && event.values[1]>0.001*/) {
+        if (sensor == Sensor.TYPE_ACCELEROMETER && !gv.isGameOver()/*&& event.values[0]>0.001 && event.values[1]>0.001*/) {
 
 
-            Float newX = -event.values[0]*200 + gv.getWidth()/2 ;
-            Float newY = event.values[1]*200 + gv.getHeight()/2 ;
-            vitesse += (-event.values[0]* -event.values[0] + event.values[1]*event.values[1])/(2<< 28);
-            scoreView.setText(Float.toString(vitesse));
+            Float newX = -event.values[0]*200 + gv.getWidth()/2f ;
+            Float newY = event.values[1]*200 + gv.getHeight()/2f ;
+            score += (-event.values[0]* -event.values[0] + event.values[1]*event.values[1])/(2<< 28);
+            scoreView.setText(Float.toString(score));
 
-            Log.i("s", "x "+accValues+"y "+accValues[1]+ vitesse + "lol");
+            gv.player.setLat(newX);
+            gv.player.setLng(newY);
+            gv.player.setTime(event.timestamp);
+            Log.i("s", "x "+accValues+"y "+accValues[1]+ score + "lol");
+            //Log.i("s", "x "+accValues+"y "+accValues[1]+ vitesse + "lol");
+
             gv.moveImage(0, newX, newY);
             gv.invalidate();
         }
