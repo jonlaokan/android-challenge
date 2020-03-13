@@ -26,7 +26,7 @@ public class GameView extends View {
     private Bitmap playerBitmap;
     private Bitmap barrelBitmap;
     private Bitmap barrel2Bitmap;
-    private Player player;
+    public Player player;
     private Barrel barrel;
     private Barrel barrel2;
 
@@ -55,10 +55,10 @@ public class GameView extends View {
     public void onDraw(Canvas canvas) {
 
         canvas.drawBitmap(playerBitmap, matrix, paint);
-        barrel.moveBarrel();
+        barrel.moveBarrel(player.getDeltaSpeed());
         canvas.drawBitmap(barrelBitmap, barrel.getMatrixPos(), paint);
 
-        barrel2.moveBarrel();
+        barrel2.moveBarrel(player.getDeltaSpeed());
         canvas.drawBitmap(barrel2Bitmap, barrel2.getMatrixPos(), paint);
 
 
