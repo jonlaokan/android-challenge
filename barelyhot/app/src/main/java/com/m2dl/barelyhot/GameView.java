@@ -2,6 +2,7 @@ package com.m2dl.barelyhot;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -21,6 +22,7 @@ public class GameView extends View {
     private Matrix matrix;
     private Matrix barrelMatrix;
     private Matrix barrel2Matrix;
+    private Bitmap background;
 
     private DisplayMetrics currentDisplay;
 
@@ -38,6 +40,7 @@ public class GameView extends View {
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        background = BitmapFactory.decodeResource(getResources(), R.drawable.sky_background);
 
         setFocusable(true); // Get key events
         setFocusableInTouchMode(true); // Get Touch events
@@ -56,7 +59,7 @@ public class GameView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-
+        canvas.drawBitmap(background, 0, 0, paint);
         canvas.drawBitmap(playerBitmap, matrix, paint);
         if(!endGame && !freeze) barrel.moveBarrel(player.getDeltaSpeed());
         canvas.drawBitmap(barrelBitmap, barrel.getMatrixPos(), paint);
