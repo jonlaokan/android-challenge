@@ -42,16 +42,14 @@ public class GameView extends View {
         currentDisplay = context.getResources().getDisplayMetrics();
         player =  new Player(getResources(), currentDisplay, 400, 400);
         matrix = player.matrixTranslateAndMove(0, 400.0f, 400.0f);
-        playerBitmap = player.initBitmap(playerBitmap,R.drawable.cut_the_rope, 400, 400);
-        barrel = new Barrel(getResources(), currentDisplay, 200, 200, 0, barrelMatrix, this);
-        barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.sun, 300, 300);
-        barrelMatrix = barrel.matrixTranslateAndMove(0, 200.0f, 200.0f);
+        playerBitmap = player.initBitmap(playerBitmap,R.drawable.supergranny, 400, 400);
         gd = new GameData();
 
-        barrel2 = new Barrel(getResources(), currentDisplay, 400, 400, 1, barrel2Matrix, this);
-        barrel2Bitmap = barrel2.initBitmap(barrelBitmap, R.drawable.sun, 400, 400);
-        barrel2Matrix = barrel2.matrixTranslateAndMove(0, 100.0f, 100.0f);
+        barrel = new Barrel(getResources(), currentDisplay, 200, 200, 0, 90, this);
+        barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.plane, 300, 300);
 
+        barrel2 = new Barrel(getResources(), currentDisplay, 400, 400, 1, -90, this);
+        barrel2Bitmap = barrel2.initBitmap(barrelBitmap, R.drawable.plane, 400, 400);
     }
 
     @Override

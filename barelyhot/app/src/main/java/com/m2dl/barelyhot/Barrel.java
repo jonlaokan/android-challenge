@@ -12,17 +12,21 @@ public class Barrel extends GraphicComponent {
     //private final int DIAG_RIGHT_DOWN = 0;
     private float offset;
     private int direction;
+
+
+    private float currentAngle;
     private GameView gv;
 
 
     private Matrix matrixPos;
 
 
-    Barrel(Resources res, DisplayMetrics displayMetrics, float x, float y, int direction, Matrix matrixPos, GameView gv) {
+    Barrel(Resources res, DisplayMetrics displayMetrics, float x, float y, int direction, float angle, GameView gv) {
         super(res, displayMetrics, x, y);
         this.direction = direction;
         this.gv = gv;
-        this.matrixPos = matrixPos;
+        this.currentAngle = angle;
+        matrixPos = new Matrix();
     }
 
     public Matrix move() {
@@ -40,6 +44,14 @@ public class Barrel extends GraphicComponent {
         return update(offset);
     }
 
+    public float getCurrentAngle() {
+        return currentAngle;
+    }
+
+    public void setCurrentAngle(float currentAngle) {
+        this.currentAngle = currentAngle;
+    }
+
     public Matrix getMatrixPos() {
         return matrixPos;
     }
@@ -49,7 +61,7 @@ public class Barrel extends GraphicComponent {
     }
 
     protected Matrix update(float offset) {
-        return matrixTranslateAndMove(0, getCurrentX() + offset, getCurrentY() + offset);
+        return matrixTranslateAndMove(getCurrentAngle(), getCurrentX() + offset, getCurrentY() + offset);
     }
 
     private void setGameView(GameView gv) {
