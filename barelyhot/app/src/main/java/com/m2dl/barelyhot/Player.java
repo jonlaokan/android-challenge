@@ -9,12 +9,8 @@ public class Player extends GraphicComponent {
     private float previous_long = 0f;
     private long previous_time =0;
 
-
     private float lat = 0f;
-
-
     private float lng = 0f;
-
     private long time =0;
 
 
@@ -50,7 +46,6 @@ public class Player extends GraphicComponent {
     }
 
     public float getDeltaSpeed(){
-       // Log.i("speed=", ( (Math.abs(previous_lat-lat)+Math.abs(previous_long-lng))/ Math.abs(previous_time-time) )+"");
         return (Math.abs(previous_lat-lat)+Math.abs(previous_long-lng))/ Math.abs(previous_time-time);
     }
 

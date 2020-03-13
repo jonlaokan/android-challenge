@@ -8,8 +8,6 @@ public class Barrel extends GraphicComponent {
 
     private final int DIAG_RIGHT_DOWN = 0;
     private final int DIAG_RIGHT_TOP = 1;
-    //private final int DIAG_RIGHT_DOWN = ;
-    //private final int DIAG_RIGHT_DOWN = 0;
     private boolean touched = false;
     private float offset;
     private int direction;
@@ -39,7 +37,6 @@ public class Barrel extends GraphicComponent {
                 offset = -speed*(2<<22)-2;
                 break;
             default:
-                // nothing
                 break;
         }
         return update(offset);
