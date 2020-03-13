@@ -2,9 +2,11 @@ package com.m2dl.barelyhot;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -20,6 +22,7 @@ public class GameView extends View {
     private Matrix matrix;
     private Matrix barrelMatrix;
     private Matrix barrel2Matrix;
+    private Bitmap background;
 
     private DisplayMetrics currentDisplay;
 
@@ -31,11 +34,13 @@ public class GameView extends View {
     private Barrel barrel2;
     private GameData gd;
     private Boolean endGame = false;
+    private Boolean freeze = false;
 
     Random randomGenerator = new Random();
-    
+
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        background = BitmapFactory.decodeResource(getResources(), R.drawable.sky_background);
 
         setFocusable(true); // Get key events
         setFocusableInTouchMode(true); // Get Touch events
@@ -43,27 +48,23 @@ public class GameView extends View {
         player =  new Player(getResources(), currentDisplay, 400, 400);
         matrix = player.matrixTranslateAndMove(0, 400.0f, 400.0f);
         playerBitmap = player.initBitmap(playerBitmap,R.drawable.supergranny, 400, 400);
-        player.hi = playerBitmap.getHeight();
-        player.wi = playerBitmap.getWidth();
-        gd = new GameData();
 
         barrel = new Barrel(getResources(), currentDisplay, 200, 200, 0, 90, this);
         barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.plane, 300, 300);
 
         barrel2 = new Barrel(getResources(), currentDisplay, 0, 0, 1, -90, this);
         barrel2Bitmap = barrel2.initBitmap(barrelBitmap, R.drawable.plane, 400, 400);
+        gd = new GameData();
     }
 
     @Override
     public void onDraw(Canvas canvas) {
-
+        canvas.drawBitmap(background, 0, 0, paint);
         canvas.drawBitmap(playerBitmap, matrix, paint);
-
-        if(!endGame) barrel.moveBarrel(player.getDeltaSpeed());
+        if(!endGame && !freeze) barrel.moveBarrel(player.getDeltaSpeed());
         canvas.drawBitmap(barrelBitmap, barrel.getMatrixPos(), paint);
 
-        if(!endGame) barrel2.moveBarrel(player.getDeltaSpeed());
-
+        if(!endGame && !freeze) barrel2.moveBarrel(player.getDeltaSpeed());
         canvas.drawBitmap(barrel2Bitmap, barrel2.getMatrixPos(), paint);
 
 
@@ -97,4 +98,19 @@ public class GameView extends View {
         return end;
     }
 
+    public void freeze() {
+        freeze = true;
+        setTimer();
+    }
+
+    private void setTimer(){
+        final int interval = 3000;
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable(){
+            public void run() {
+                freeze = false;
+            }
+        };
+        handler.postDelayed(runnable, interval);
+    }
 }

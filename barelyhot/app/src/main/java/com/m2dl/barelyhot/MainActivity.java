@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sm.registerListener(this, accSensor,SensorManager.SENSOR_DELAY_UI);
         scoreView = findViewById(R.id.score);
         scoreView.setText("0");
+        gv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gv.freeze();
+            }
+        });
         gv.player.setLat(gv.getWidth()/2f);
         gv.player.setLng(gv.getHeight()/2f);
     }
