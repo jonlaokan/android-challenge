@@ -29,13 +29,13 @@ public class Barrel extends GraphicComponent {
         matrixPos = new Matrix();
     }
 
-    public Matrix move() {
+    public Matrix move(float speed) {
         switch(direction) {
             case DIAG_RIGHT_DOWN:
-                offset = 5;
+                offset = speed*(2<<22)+2;
                 break;
             case DIAG_RIGHT_TOP:
-                offset = -5;
+                offset = -speed*(2<<22)-2;
                 break;
             default:
                 // nothing
@@ -68,8 +68,8 @@ public class Barrel extends GraphicComponent {
         this.gv = gv;
     }
 
-    protected  void moveBarrel() {
-                        matrixPos = move();
+    protected  void moveBarrel( float speed) {
+                        matrixPos = move(speed);
                         gv.invalidate();
                         if (currentX > gv.getWidth() || currentY > gv.getHeight()) {
                             matrixPos.reset();

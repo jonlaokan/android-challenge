@@ -25,7 +25,8 @@ public class GameData {
         boolean impact = false;
         float diffX=Math.abs(player.currentX-barrel.currentX);
         float diffY=Math.abs(player.currentY-barrel.currentY);
-        if (diffX<0.0000001 && diffY<0.0000001* player.scale){
+
+        if (diffX< 50 && diffY< 50){
             impact = true;
         }
         else impact = false;

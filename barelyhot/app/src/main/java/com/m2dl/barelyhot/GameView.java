@@ -27,7 +27,7 @@ public class GameView extends View {
     private Bitmap playerBitmap;
     private Bitmap barrelBitmap;
     private Bitmap barrel2Bitmap;
-    private Player player;
+    public Player player;
     private Barrel barrel;
     private Barrel barrel2;
     private GameData gd;
@@ -47,10 +47,10 @@ public class GameView extends View {
         playerBitmap = player.initBitmap(playerBitmap,R.drawable.supergranny, 400, 400);
 
         barrel = new Barrel(getResources(), currentDisplay, 200, 200, 0, 90, this);
-        barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.plane, 200, 200);
+        barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.plane, 300, 300);
 
         barrel2 = new Barrel(getResources(), currentDisplay, 400, 400, 1, -90, this);
-        barrel2Bitmap = barrel2.initBitmap(barrelBitmap, R.drawable.plane, 200, 200);
+        barrel2Bitmap = barrel2.initBitmap(barrelBitmap, R.drawable.plane, 400, 400);
         gd = new GameData();
     }
 
@@ -58,10 +58,10 @@ public class GameView extends View {
     public void onDraw(Canvas canvas) {
 
         canvas.drawBitmap(playerBitmap, matrix, paint);
-        if(!endGame && !freeze) barrel.moveBarrel();
+        if(!endGame && !freeze) barrel.moveBarrel(player.getDeltaSpeed());
         canvas.drawBitmap(barrelBitmap, barrel.getMatrixPos(), paint);
 
-        if(!endGame && !freeze) barrel2.moveBarrel();
+        if(!endGame && !freeze) barrel2.moveBarrel(player.getDeltaSpeed());
         canvas.drawBitmap(barrel2Bitmap, barrel2.getMatrixPos(), paint);
 
 
