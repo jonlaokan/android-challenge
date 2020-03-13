@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sm.registerListener(this, accSensor,SensorManager.SENSOR_DELAY_UI);
         scoreView = findViewById(R.id.score);
         scoreView.setText("0");
-        gv.isGameOver();
 
     }
 
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         int sensor = event.sensor.getType();
-        if (sensor == Sensor.TYPE_ACCELEROMETER /*&& event.values[0]>0.001 && event.values[1]>0.001*/) {
+        if (sensor == Sensor.TYPE_ACCELEROMETER && !gv.isGameOver()/*&& event.values[0]>0.001 && event.values[1]>0.001*/) {
 
 
             Float newX = -event.values[0]*200 + gv.getWidth()/2 ;
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             vitesse += (-event.values[0]* -event.values[0] + event.values[1]*event.values[1])/(2<< 28);
             scoreView.setText(Float.toString(vitesse));
 
-            Log.i("s", "x "+accValues+"y "+accValues[1]+ vitesse + "lol");
+            //Log.i("s", "x "+accValues+"y "+accValues[1]+ vitesse + "lol");
             gv.moveImage(0, newX, newY);
             gv.invalidate();
         }

@@ -30,6 +30,7 @@ public class GameView extends View {
     private Barrel barrel;
     private Barrel barrel2;
     private GameData gd;
+    private Boolean endGame = false;
 
     Random randomGenerator = new Random();
     
@@ -57,10 +58,10 @@ public class GameView extends View {
     public void onDraw(Canvas canvas) {
 
         canvas.drawBitmap(playerBitmap, matrix, paint);
-        barrel.moveBarrel();
+        if(!endGame) barrel.moveBarrel();
         canvas.drawBitmap(barrelBitmap, barrel.getMatrixPos(), paint);
 
-        barrel2.moveBarrel();
+        if(!endGame) barrel2.moveBarrel();
         canvas.drawBitmap(barrel2Bitmap, barrel2.getMatrixPos(), paint);
 
 
@@ -87,7 +88,11 @@ public class GameView extends View {
     }
 
     public boolean isGameOver(){
-        return gd.isImpacts(player, barrel);
+        Boolean end = gd.isImpacts(player, barrel) || gd.isImpacts(player, barrel2);
+        if(end){
+            endGame = true;
+        }
+        return end;
     }
 
 }
