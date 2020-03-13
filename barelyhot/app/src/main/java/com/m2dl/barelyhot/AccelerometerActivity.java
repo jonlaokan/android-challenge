@@ -61,15 +61,6 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
             imageView.setY(accValues[1]*accValues[1]* accValues[1]*100);
             imageView.invalidate();
         }
-        /*if(sensor == Sensor.TYPE_GYROSCOPE){
-            accValues[0] = event.values[0];
-            accValues[1] = event.values[1];
-            accValues[2] = event.values[2];
-            ImageView imageView = findViewById(R.id.person);
-            imageView.setX(accValues[0]);
-            imageView.setX(accValues[1]);
-            //imageView.invalidate();
-        }*/
     }
 
     @Override

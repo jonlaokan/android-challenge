@@ -16,6 +16,8 @@ abstract class GraphicComponent {
     private float xOffset;
     private float yOffset;
 
+    public float wi,hi;
+
     public float getCurrentX() {
         return currentX;
     }
@@ -60,6 +62,8 @@ abstract class GraphicComponent {
             image = BitmapFactory.decodeResource(res, resource);
             image = Bitmap.createScaledBitmap(image, (int) (width * scale), (int) (height * scale), true);
         }
+        wi = width;
+        hi = height;
         return image;
 
     }

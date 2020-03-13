@@ -29,6 +29,8 @@ public class GameView extends View {
     public Player player;
     private Barrel barrel;
     private Barrel barrel2;
+    private GameData gd;
+    private Boolean endGame = false;
 
     Random randomGenerator = new Random();
     
@@ -41,11 +43,14 @@ public class GameView extends View {
         player =  new Player(getResources(), currentDisplay, 400, 400);
         matrix = player.matrixTranslateAndMove(0, 400.0f, 400.0f);
         playerBitmap = player.initBitmap(playerBitmap,R.drawable.supergranny, 400, 400);
+        player.hi = playerBitmap.getHeight();
+        player.wi = playerBitmap.getWidth();
+        gd = new GameData();
 
         barrel = new Barrel(getResources(), currentDisplay, 200, 200, 0, 90, this);
         barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.plane, 300, 300);
 
-        barrel2 = new Barrel(getResources(), currentDisplay, 400, 400, 1, -90, this);
+        barrel2 = new Barrel(getResources(), currentDisplay, 0, 0, 1, -90, this);
         barrel2Bitmap = barrel2.initBitmap(barrelBitmap, R.drawable.plane, 400, 400);
     }
 
@@ -53,10 +58,12 @@ public class GameView extends View {
     public void onDraw(Canvas canvas) {
 
         canvas.drawBitmap(playerBitmap, matrix, paint);
-        barrel.moveBarrel(player.getDeltaSpeed());
+
+        if(!endGame) barrel.moveBarrel(player.getDeltaSpeed());
         canvas.drawBitmap(barrelBitmap, barrel.getMatrixPos(), paint);
 
-        barrel2.moveBarrel(player.getDeltaSpeed());
+        if(!endGame) barrel2.moveBarrel(player.getDeltaSpeed());
+
         canvas.drawBitmap(barrel2Bitmap, barrel2.getMatrixPos(), paint);
 
 
@@ -80,6 +87,14 @@ public class GameView extends View {
         System.out.println("matrix changed");
         invalidate();
 
+    }
+
+    public boolean isGameOver(){
+        Boolean end = gd.isImpacts(player, barrel) || gd.isImpacts(player, barrel2);
+        if(end){
+            endGame = true;
+        }
+        return end;
     }
 
 }
