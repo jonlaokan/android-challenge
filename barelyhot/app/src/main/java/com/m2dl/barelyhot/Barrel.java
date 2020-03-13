@@ -10,6 +10,7 @@ public class Barrel extends GraphicComponent {
     private final int DIAG_RIGHT_TOP = 1;
     //private final int DIAG_RIGHT_DOWN = ;
     //private final int DIAG_RIGHT_DOWN = 0;
+    private boolean touched = false;
     private float offset;
     private int direction;
 
@@ -66,6 +67,10 @@ public class Barrel extends GraphicComponent {
 
     private void setGameView(GameView gv) {
         this.gv = gv;
+    }
+
+    private void  isTouched() {
+        touched = true;
     }
 
     protected  void moveBarrel() {
