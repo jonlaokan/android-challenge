@@ -64,6 +64,11 @@ public class Barrel extends GraphicComponent {
                             currentX = 0;
                             currentY = 0;
                         }
+                        if( currentX <0 || currentY<0){
+                            matrixPos.reset();
+                            currentX = gv.getWidth();
+                            currentY = gv.getHeight();
+                        }
                     }
 
 }
