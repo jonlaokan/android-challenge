@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -31,9 +32,10 @@ public class GameView extends View {
     private Barrel barrel2;
     private GameData gd;
     private Boolean endGame = false;
+    private Boolean freeze = false;
 
     Random randomGenerator = new Random();
-    
+
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -43,23 +45,23 @@ public class GameView extends View {
         player =  new Player(getResources(), currentDisplay, 400, 400);
         matrix = player.matrixTranslateAndMove(0, 400.0f, 400.0f);
         playerBitmap = player.initBitmap(playerBitmap,R.drawable.supergranny, 400, 400);
-        gd = new GameData();
 
         barrel = new Barrel(getResources(), currentDisplay, 200, 200, 0, 90, this);
-        barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.plane, 300, 300);
+        barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.plane, 200, 200);
 
         barrel2 = new Barrel(getResources(), currentDisplay, 400, 400, 1, -90, this);
-        barrel2Bitmap = barrel2.initBitmap(barrelBitmap, R.drawable.plane, 400, 400);
+        barrel2Bitmap = barrel2.initBitmap(barrelBitmap, R.drawable.plane, 200, 200);
+        gd = new GameData();
     }
 
     @Override
     public void onDraw(Canvas canvas) {
 
         canvas.drawBitmap(playerBitmap, matrix, paint);
-        if(!endGame) barrel.moveBarrel();
+        if(!endGame && !freeze) barrel.moveBarrel();
         canvas.drawBitmap(barrelBitmap, barrel.getMatrixPos(), paint);
 
-        if(!endGame) barrel2.moveBarrel();
+        if(!endGame && !freeze) barrel2.moveBarrel();
         canvas.drawBitmap(barrel2Bitmap, barrel2.getMatrixPos(), paint);
 
 
@@ -93,4 +95,19 @@ public class GameView extends View {
         return end;
     }
 
+    public void freeze() {
+        freeze = true;
+        setTimer();
+    }
+
+    private void setTimer(){
+        final int interval = 3000;
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable(){
+            public void run() {
+                freeze = false;
+            }
+        };
+        handler.postDelayed(runnable, interval);
+    }
 }
