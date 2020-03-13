@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager sm;
     private float[] accValues = {0,0};
     private Float vitesse = 0f;
+    private TextView scoreView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor accSensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sm.registerListener(this, accSensor,SensorManager.SENSOR_DELAY_UI);
+        scoreView = findViewById(R.id.score);
+        scoreView.setText("0");
+
     }
 
     @Override
@@ -53,7 +58,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             Float newX = -event.values[0]*200 + gv.getWidth()/2 ;
             Float newY = event.values[1]*200 + gv.getHeight()/2 ;
-            vitesse += (newX*newX + newY*newY)*100;
+            vitesse += (-event.values[0]* -event.values[0] + event.values[1]*event.values[1])/(2<< 28);
+            scoreView.setText(Float.toString(vitesse));
+
             Log.i("s", "x "+accValues+"y "+accValues[1]+ vitesse + "lol");
             gv.moveImage(0, newX, newY);
             gv.invalidate();
