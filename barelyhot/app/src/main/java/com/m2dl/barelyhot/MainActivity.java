@@ -75,4 +75,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void movePlayer(View view) {
         gv.move(view);
     }
+
+
+
 }

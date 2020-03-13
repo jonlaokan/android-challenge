@@ -12,6 +12,4 @@ import android.util.DisplayMetrics;
         return 0.5f;
     }
 
-
-
 }
