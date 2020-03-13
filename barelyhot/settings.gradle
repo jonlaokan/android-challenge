@@ -1,0 +1,2 @@
+rootProject.name='BarelyHot'
+include ':app'
