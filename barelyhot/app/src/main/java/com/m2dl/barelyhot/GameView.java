@@ -29,6 +29,7 @@ public class GameView extends View {
     private Player player;
     private Barrel barrel;
     private Barrel barrel2;
+    private GameData gd;
 
     Random randomGenerator = new Random();
     
@@ -44,6 +45,7 @@ public class GameView extends View {
         barrel = new Barrel(getResources(), currentDisplay, 200, 200, 0, barrelMatrix, this);
         barrelBitmap = barrel.initBitmap(barrelBitmap, R.drawable.sun, 300, 300);
         barrelMatrix = barrel.matrixTranslateAndMove(0, 200.0f, 200.0f);
+        gd = new GameData();
 
         barrel.startThread();
     }
@@ -73,6 +75,10 @@ public class GameView extends View {
         System.out.println("matrix changed");
         invalidate();
 
+    }
+
+    public boolean isGameOver(){
+        return gd.isImpacts(player, barrel);
     }
 
 }

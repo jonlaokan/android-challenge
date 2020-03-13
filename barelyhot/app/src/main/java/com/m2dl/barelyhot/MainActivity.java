@@ -3,6 +3,7 @@ package com.m2dl.barelyhot;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Matrix;
+import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private float[] accValues = {0,0};
     private Float vitesse = 0f;
     private TextView scoreView;
+    private GameData gd = new GameData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sm.registerListener(this, accSensor,SensorManager.SENSOR_DELAY_UI);
         scoreView = findViewById(R.id.score);
         scoreView.setText("0");
+        gv.isGameOver();
 
     }
 
