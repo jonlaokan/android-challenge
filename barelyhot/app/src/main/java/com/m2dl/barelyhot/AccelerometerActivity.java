@@ -17,7 +17,7 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_accelerometer);
         sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor accSensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         Sensor gyrSensor = sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
