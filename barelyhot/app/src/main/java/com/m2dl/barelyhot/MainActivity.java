@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             Float newX = -event.values[0]*200 + gv.getWidth()/2f ;
             Float newY = event.values[1]*200 + gv.getHeight()/2f ;
-            score += (-event.values[0]* -event.values[0] + event.values[1]*event.values[1])/(2<< 28);
+            score += (-event.values[0]* -event.values[0] + event.values[1]*event.values[1])/(2<< 12);
             scoreView.setText(Float.toString(score));
 
             gv.player.setLat(newX);
