@@ -67,8 +67,6 @@ public class GameView extends View {
         if(!endGame && !freeze) barrel2.moveBarrel(player.getDeltaSpeed());
         canvas.drawBitmap(barrel2Bitmap, barrel2.getMatrixPos(), paint);
 
-
-        //canvas.drawBitmap(barrel2Bitmap, barrel2Matrix, paint);
         System.out.println(barrel.getMatrixPos().toString());
     }
 

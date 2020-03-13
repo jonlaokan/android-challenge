@@ -8,7 +8,6 @@ import android.util.DisplayMetrics;
 
     static public float scale(DisplayMetrics metrics) {
         float scale = DEFAULT_SCALE;
-
         return 0.5f;
     }
 
