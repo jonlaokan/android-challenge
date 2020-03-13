@@ -47,14 +47,23 @@ public class GameView extends View {
         barrelMatrix = barrel.matrixTranslateAndMove(0, 200.0f, 200.0f);
         gd = new GameData();
 
-        barrel.startThread();
+        barrel2 = new Barrel(getResources(), currentDisplay, 400, 400, 1, barrel2Matrix, this);
+        barrel2Bitmap = barrel2.initBitmap(barrelBitmap, R.drawable.sun, 400, 400);
+        barrel2Matrix = barrel2.matrixTranslateAndMove(0, 100.0f, 100.0f);
+
     }
 
     @Override
     public void onDraw(Canvas canvas) {
 
         canvas.drawBitmap(playerBitmap, matrix, paint);
+        barrel.moveBarrel();
         canvas.drawBitmap(barrelBitmap, barrel.getMatrixPos(), paint);
+
+        barrel2.moveBarrel();
+        canvas.drawBitmap(barrel2Bitmap, barrel2.getMatrixPos(), paint);
+
+
         //canvas.drawBitmap(barrel2Bitmap, barrel2Matrix, paint);
         System.out.println(barrel.getMatrixPos().toString());
     }
