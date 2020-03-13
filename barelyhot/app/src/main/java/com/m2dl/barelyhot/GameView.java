@@ -52,4 +52,13 @@ public class GameView extends View {
         invalidate();
     }
 
+    public void moveImage(int angle, float newX, float newY){
+        matrix = player.matrixTranslateAndMove(angle,
+                newX, newY);
+
+        System.out.println("matrix changed");
+        invalidate();
+
+    }
+
 }
